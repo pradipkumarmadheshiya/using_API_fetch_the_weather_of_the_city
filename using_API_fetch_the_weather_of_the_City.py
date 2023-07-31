@@ -4,12 +4,11 @@ url="https://api.openweathermap.org/data/2.5/weather?q="
 userInput=input("Enter the City Name: ")
 apiKey="947f6a04c9ce2de25f27d713abb269d6"
 
-city=userInput
-
 completeUrl=url+userInput+"&appid="+apiKey
-
 response=requests.get(completeUrl)
-data=response.json()
 
-c=round((data["main"]["temp"])-273.15,2)
-print("The Temperature in",city,"is",str(c)+"°c")
+if response.json()["cod"]!=200:
+    print("Invalid city")
+else:
+    cel=round((response.json()["main"]["temp"])-273.15,2)
+    print("The Temperature in",userInput,"is",str(cel)+"°c")
